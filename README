@@ -1,0 +1,23 @@
+--- Створення інстансу (в cmd пишемо:) ---
+./instance_run.sh
+
+--- Команда для з'єднання з віддаленим сервером через ssh ---
+ssh -i "FirstKeyPair.pem" -L 5566:127.0.0.1:2375 ubuntu@<your_public_dns> -N
+
+--- Команда для створення імеджу ---
+docker -H localhost:5566 build -t ng .
+
+--- Запуск нового контейнера ---
+docker -H localhost:5566 run -d -p 80:80 ng
+
+--- Дивимось на наш запущений сервер в браузері ---
+http://<your_instance_ip>
+
+--- Вивід списку імеджів від нашого демона який працює на localhost:5566 ---
+docker -H localhost:5566 images
+
+--- Вивід списку контейнерів від нашого демона який працює на localhost:5566 ---
+docker -H localhost:5566 ps
+
+--- Зупинка конкретного контейнера за id  ---
+docker -H localhost:5566 stop <container ID>
